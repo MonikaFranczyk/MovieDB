@@ -1,5 +1,11 @@
 # MovieDB
-This great site is happy to bring you your favourite TV show's details.
+This great site is happy to bring you your favourite TV show's details. 
+
+### Technologies
+- Flask Framework,
+- Python
+- SQL & PostgreSQL
+- HTML & CSS & JavaScript
 
 ### How to run?
 1. App use Flask framework, so at the beginning You need to install Flask
