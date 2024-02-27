@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>CsED</title>
+
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+    <!-- Normalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+</head>
+
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <div id="header-auth">
+            <button type="button" id="bt-register">Register</button>
+            <button type="button" id="bt-login">Login</button>
+        </div>
+    </header>
+    <section>
+    <nav class="breadcrumb">
+            <span class="separator">&gt;</span>
+            <a href="{{ url_for('display_all_shows') }}">Shows</a>
+            <span class="separator">&gt;</span>
+            <a>{{ show['title'] }}</a>
+        </nav>
+        <h1 class="title text-center">{{ show['title'] }} details</h1>
+         <div class="card">
+            <h2>Welcome TV show lovers!</h2>
+            <p>This great site is happy to bring you your favourite TV show's <i>details</i>.</p>
+            <p></p>
+            <p>Okay, actually this is a designed dumb page without any logic.</p>
+            <p>You can find a navigational element, the so called "breadcrumb" above the page's title. Use it for
+                in-depth
+                navigation.
+            </p>
+        </div>
+        <div class="card detailed-view">
+            <p>{{ show['title'] }} movie details:</p>
+            <div class="row">
+                <div data-show-title="{{ show['title'] }}" class="poster col col-third">
+                <div class="loader">
+                </div>
+            </div>
+                <div class="col col-twothird">
+                    <h2>{{ show['title'] }}</h2>
+                    <p class="small grayed">{{ show['runtime']|convert_runtime}}<span class="separator">|</span>
+                        {{ show['rating'] }} ☆<span class="separator">|</span>
+                        {{ show['genres'] }}
+                    <p>{{ show['overview'] }}</p>
+                </div>
+            </div>
+            <div>
+                <p>
+                {% if show['stars'] %}
+                <b>Stars:</b>&nbsp;
+                    {% for star in show['stars'].split(',') %}
+                        <a href="#">{{ star }}</a>
+                    {% endfor %}
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    <div class="card row">
+        <div class="row">
+            <div class="col col-twothird">
+                <p>Seasons:</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>      </th>
+                        <th>Title</th>
+                        <th>Overview</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for season in seasons %}
+                        <tr>
+                            <td>{{ season['season_number'] }}</td>
+                            <td>{{ season['title'] }}</td>
+                            <td>{{ season['overview'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+                {% if video_id %}
+                <div class="col col-third">
+                    <p>Trailer: </p>
+                    <div id="player" class="trailer" data-video-id="{{ video_id }}"></div>
+                    <script src="{{ url_for('static', filename='js/embed-youtube.js') }}" defer></script>
+                </div>
+                {% endif %}
+    </div>
+    </section>
+    <footer>
+        Copyright, bla-bla
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+</body>
+</html>
